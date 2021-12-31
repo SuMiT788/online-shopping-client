@@ -1,0 +1,69 @@
+<h2 class="inactive underlineHover">Sign In</h2>
+<form
+  #signInForm="ngForm"
+  (ngSubmit)="signInForm.valid && onSubmit(signInForm)"
+>
+  <input
+    type="text"
+    #UniqueId="ngModel"
+    [(ngModel)]="userService.selectedUser.UniqueId"
+    name="UniqueId"
+    placeholder="Mobile Number / Email Id"
+    required
+    [ngClass]="{ 'invalid-textbox': signInForm.submitted && !UniqueId.valid }"
+  />
+  <div *ngIf="signInForm.submitted && !UniqueId.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+
+  <input
+    type="password"
+    #Password="ngModel"
+    [(ngModel)]="userService.selectedUser.Password"
+    name="Password"
+    placeholder="Password"
+    minlength="4"
+    required
+    id="signinPassword"
+    [ngClass]="{
+      'invalid-textbox': signInForm.submitted && !Password.valid
+    }"
+  />
+
+  <div *ngIf="signInForm.submitted && Password.errors">
+    <label *ngIf="Password.errors.required" class="validation-message"
+      >This field is required.</label
+    >
+    <label *ngIf="Password.errors.minlength" class="validation-message"
+      >Enter atleast 4 characters</label
+    >
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" (click)="myFunction()" />Show Password
+    </label>
+  </div>
+  <input type="submit" (click)="buttonType = 'signin'" value="sign in" />
+  <input
+    *ngIf="showLogOutAllButton"
+    type="submit"
+    (click)="buttonType = 'logoutall'"
+    value="logout from all devices"
+  />
+</form>
+
+<!-- Success message -->
+<div class="success" *ngIf="showSuccessMessage">Logged in successfully.</div>
+<div class="success" *ngIf="showSuccessfullLogoutMessage">
+  Logged out all devices successfully. Please login.
+</div>
+
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+  {{ serverErrorMessages }}
+</div>
+
+<div>
+  <a href="/user/signup">Create new account</a><br />
+  <a href="/user/resetpassword">Forgot password</a>
+</div>

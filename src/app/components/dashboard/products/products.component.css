@@ -1,0 +1,19 @@
+.iconName {
+  font-size: 16px;
+}
+
+.card_style {
+  flex-grow: 1;
+  float: left;
+  background-color: azure;
+  padding: 5px;
+  height: 450px;
+  border: 3px solid #eee;
+  border-radius: 3px;
+  min-width: 300px;
+}
+
+img {
+  display: block;
+  margin: auto;
+}

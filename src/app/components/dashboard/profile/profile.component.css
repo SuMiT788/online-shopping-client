@@ -1,0 +1,48 @@
+h3 {
+  font-weight: bold;
+}
+
+.column {
+  float: left;
+  background-color: #f3f3f3;
+}
+
+.column-1 {
+  width: 58%;
+  padding: 0 10px;
+  height: 85vh;
+  margin: 0 2%;
+}
+
+.column-2 {
+  width: 38%;
+  text-align: center;
+  height: 85vh;
+}
+
+img {
+  display: block;
+  width: 200px;
+  border-radius: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10vh;
+}
+
+.sub {
+  color: #444;
+}
+
+input {
+  background-color: white;
+  margin: 0 0 0 50px;
+}
+
+label {
+  display: block;
+  margin: 0 0 0 50px;
+}
+button {
+  display: block;
+  margin: 0 auto;
+}

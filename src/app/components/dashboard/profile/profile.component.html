@@ -1,0 +1,39 @@
+<div *ngIf="user">
+  <div class="column column-1">
+    <h3>Edit Profile</h3>
+    <div class="form-group">
+      <label for="Name">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Name"
+        [(ngModel)]="user.Name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Email">Email</label>
+      <input
+        type="text"
+        class="form-control"
+        id="Email"
+        [(ngModel)]="user.Email"
+      />
+    </div>
+    <div class="form-group">
+      <label for="MobileNumber">Mobile Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="MobileNumber"
+        [(ngModel)]="user.MobileNumber"
+      />
+    </div>
+    <button class="btn btn-default" (click)="editProfile()">Submit</button>
+  </div>
+  <div class="column column-2">
+    <img src="../../../assets/images/user-profile.png" alt="image" />
+    <h3>{{ userService.selectedUser.Name }}</h3>
+    <h4 class="sub">{{ userService.selectedUser.Email }}</h4>
+    <h4 class="sub">{{ userService.selectedUser.MobileNumber }}</h4>
+  </div>
+</div>

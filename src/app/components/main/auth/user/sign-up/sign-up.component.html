@@ -1,0 +1,152 @@
+<h2 class="inactive underlineHover">Sign Up</h2>
+<form
+  #signUpForm="ngForm"
+  (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)"
+>
+  <input
+    type="text"
+    #Name="ngModel"
+    [(ngModel)]="userService.selectedUser.Name"
+    name="Name"
+    placeholder="Name"
+    required
+    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !Name.valid }"
+  />
+  <div *ngIf="signUpForm.submitted && !Name.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+
+  <input
+    type="text"
+    #Email="ngModel"
+    [(ngModel)]="userService.selectedUser.Email"
+    name="Email"
+    placeholder="Email Address"
+    required
+    [pattern]="emailRegex"
+    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !Email.valid }"
+  />
+  <div *ngIf="signUpForm.submitted && Email.errors">
+    <label *ngIf="Email.errors.required" class="validation-message">
+      This field is required.
+    </label>
+    <label *ngIf="Email.errors.pattern" class="validation-message">
+      Invalid email address.
+    </label>
+  </div>
+  <input
+    type="text"
+    #MobileNumber="ngModel"
+    [(ngModel)]="userService.selectedUser.MobileNumber"
+    name="MobileNumber"
+    placeholder="Mobile Number"
+    minlength="10"
+    maxlength="10"
+    required
+    [ngClass]="{
+      'invalid-textbox': signUpForm.submitted && !MobileNumber.valid
+    }"
+  />
+  <div *ngIf="signUpForm.submitted && MobileNumber.errors">
+    <label *ngIf="MobileNumber.errors.required" class="validation-message"
+      >This field is required.</label
+    >
+    <label *ngIf="MobileNumber.errors.minlength" class="validation-message"
+      >Mobile number needs to be of 10 digits.</label
+    >
+  </div>
+  <input
+    type="password"
+    #Password="ngModel"
+    [(ngModel)]="userService.selectedUser.Password"
+    name="Password"
+    placeholder="Password"
+    minlength="4"
+    required
+    [ngClass]="{
+      'invalid-textbox': signUpForm.submitted && !Password.valid
+    }"
+    (keyup)="assignPassword($event)"
+  />
+  <div *ngIf="signUpForm.submitted && Password.errors">
+    <label *ngIf="Password.errors.required" class="validation-message"
+      >This field is required.</label
+    >
+    <label *ngIf="Password.errors.minlength" class="validation-message"
+      >Enter atleast 4 characters</label
+    >
+  </div>
+  <input
+    type="password"
+    #ConfirmPassword="ngModel"
+    [(ngModel)]="confirmPassword"
+    name="ConfirmPassword"
+    placeholder="Confirm
+  Password"
+    minlength="4"
+    required
+    [pattern]="password"
+    [ngClass]="{
+      'invalid-textbox': signUpForm.submitted && !ConfirmPassword.valid
+    }"
+  />
+  <div *ngIf="signUpForm.submitted && ConfirmPassword.errors">
+    <label *ngIf="ConfirmPassword.errors.required" class="validation-message">
+      This field is required.
+    </label>
+    <label *ngIf="ConfirmPassword.errors.pattern" class="validation-message">
+      Password not matching.
+    </label>
+  </div>
+  <select
+    [(ngModel)]="userService.selectedUser.UniqueQuestionId"
+    #UniqueQuestionId="ngModel"
+    name="UniqueQuestionId"
+    required
+  >
+    <option value="NaN" disabled>----Select security question----</option>
+    <option
+      *ngFor="
+        let question of uniqueQuestionService.allUniqueQuestions
+          .AllUniqueQuestions
+      "
+      [value]="question.UniqueQuestionId"
+    >
+      {{ question.Question }}
+    </option>
+  </select>
+  <div
+    *ngIf="signUpForm.submitted && !userService.selectedUser.UniqueQuestionId"
+  >
+    <label class="validation-message">This field is required.</label>
+  </div>
+  <input
+    type="password"
+    #UniqueQuestionAnswer="ngModel"
+    [(ngModel)]="userService.selectedUser.UniqueQuestionAnswer"
+    name="UniqueQuestionAnswer"
+    placeholder="Security Question Answer"
+    required
+    [ngClass]="{
+      'invalid-textbox': signUpForm.submitted && !UniqueQuestionAnswer.valid
+    }"
+  />
+  <div *ngIf="signUpForm.submitted && !UniqueQuestionAnswer.valid">
+    <label class="validation-message">This field is required.</label>
+  </div>
+  <input type="submit" value="Sign Up" />
+</form>
+
+<!-- Success message -->
+<div class="success" *ngIf="showSuccessMessage">
+  Account Created Successfully
+</div>
+<div>
+  <p>Already have an account?</p>
+  <a href="/user/signin">Sign In</a>
+</div>
+
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+  {{ serverErrorMessages }}
+</div>

@@ -1,0 +1,85 @@
+<div
+  style="display: block"
+  *ngIf="productService.productsArr && productService.productsArr.length"
+>
+  <div class="iconName" *ngFor="let product of productService.productsArr">
+    <div class="card_style col-xs-6 col-md-4">
+      <div>
+        <img
+          [src]="environment.serverUrl + product.ImagePath"
+          [alt]="product.ProductId"
+          style="height: 300px; margin: 0 auto"
+        />
+      </div>
+      <div>
+        <p styles="display:inline">
+          {{ product.Name.slice(0, 60)
+          }}<span *ngIf="product.Name.length > 60" styles="display:inline"
+            >...</span
+          >
+        </p>
+      </div>
+      <div>
+        <p>₹ {{ product.Price }}</p>
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          (click)="onAddToWishList(product.ProductId)"
+        >
+          Add to wishlist
+        </button>
+        <button
+          class="btn btn-primary"
+          style="float: right"
+          (click)="addToCart(product.ProductId)"
+        >
+          Add to Cart
+        </button>
+        <div style="display: inline; float: right">
+          <input
+            class="form-control"
+            type="number"
+            min="1"
+            max="100"
+            style="display: inline; width: 70px"
+            [value]="productService.quantityArr[product.ProductId]"
+            (click)="assignQuantity(product.ProductId, $event)"
+            (keyup)="assignQuantity(product.ProductId, $event)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  style="display: block; text-align: center"
+  *ngIf="productService.productsArr && productService.productsArr.length"
+>
+  <nav aria-label="Page navigation">
+    <br />
+    <ul class="pagination">
+      <li>
+        <a aria-label="Previous" (click)="previousPage()">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li>
+        <a
+          *ngFor="let pageNo of productService.pages"
+          (click)="changePage(pageNo)"
+        >
+          {{ pageNo }}
+        </a>
+      </li>
+      <li>
+        <a aria-label="Next" (click)="nextPage()">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div *ngIf="!productService.productsArr || !productService.productsArr.length">
+  <h2 style="display: block; margin: auto">No products were found!</h2>
+</div>

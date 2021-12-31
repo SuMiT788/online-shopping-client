@@ -1,0 +1,5 @@
+<app-navbar></app-navbar>
+<app-products *ngIf="dashboardService.currentTab === 'products'"></app-products>
+<app-wishlist *ngIf="dashboardService.currentTab === 'wishlist'"></app-wishlist>
+<app-cart *ngIf="dashboardService.currentTab === 'cart'"></app-cart>
+<app-profile *ngIf="dashboardService.currentTab === 'profile'"></app-profile>

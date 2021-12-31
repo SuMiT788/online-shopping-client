@@ -1,0 +1,37 @@
+<div class="iconName">
+  <table class="table table-striped" *ngIf="wishlistService.wishlistArr.length">
+    <thead></thead>
+    <tbody>
+      <tr *ngFor="let product of wishlistService.wishlistArr; let i = index">
+        <td>
+          <img
+            [src]="environment.serverUrl + product['Product.ImagePath']"
+            [alt]="product['Product.ProductId']"
+            style="height: 50px"
+          />
+        </td>
+        <td>{{ product["Product.Name"].slice(0, 50) }}...</td>
+        <td>₹ {{ product["Product.Price"] }}</td>
+        <td>
+          <button
+            style="float: right"
+            (click)="addToCart(product['Product.ProductId'])"
+          >
+            Add to cart
+          </button>
+        </td>
+        <td>
+          <button
+            title="Remove from wish list"
+            (click)="deleteFromWishlist(product['Product.ProductId'])"
+          >
+            &times;
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="!wishlistService.wishlistArr.length">
+  <h2 style="display: block; margin: auto">No items in wishlist</h2>
+</div>
